@@ -5,10 +5,13 @@ code-replacement entrypoint to `QuorumVault`, and from then on every code change
 AI-consensus review against a plain-English policy, a numeric risk score plus five structured safety gates,
 and a bounded on-chain objection window before it can install.
 
+**Live app:** https://quorum-vault-gamma.vercel.app
+**Source:** https://github.com/Hilda26/QuorumVault
+
 ## Deployed contracts (StudioNet)
 
-- `QuorumVault`: `0x909c2d556De1684ce419a3e78b22Aa1E509636C0`
-- `VaultCounter` (example member): `0x34dfd83798AA2040356f0AeDEB584DAeFb39293e`
+- `QuorumVault`: [`0x909c2d556De1684ce419a3e78b22Aa1E509636C0`](https://explorer-studio.genlayer.com/address/0x909c2d556De1684ce419a3e78b22Aa1E509636C0)
+- `VaultCounter` (example member): [`0x34dfd83798AA2040356f0AeDEB584DAeFb39293e`](https://explorer-studio.genlayer.com/address/0x34dfd83798AA2040356f0AeDEB584DAeFb39293e)
 
 ## What makes it different
 

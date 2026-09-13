@@ -2,6 +2,9 @@
 
 **A GenLayer Intelligent Contract governance system for AI-consensus-reviewed code amendments, with a bounded objection window and exact-digest binding.**
 
+**Live app:** https://quorum-vault-gamma.vercel.app
+**Contract (StudioNet):** [`0x909c2d556De1684ce419a3e78b22Aa1E509636C0`](https://explorer-studio.genlayer.com/address/0x909c2d556De1684ce419a3e78b22Aa1E509636C0)
+
 ## What it is
 
 Quorum Vault lets a "vault" (any GenLayer contract, called a *member*) hand exclusive custody of its own code-replacement entrypoint to the `QuorumVault` contract. From then on, changing that member's code requires:
