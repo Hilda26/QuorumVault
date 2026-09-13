@@ -1,0 +1,12 @@
+node_modules/
+.next/
+artifacts/
+.gltest_cache/
+__pycache__/
+.pytest_cache/
+.env
+.env.local
+*.pyc
+tsconfig.tsbuildinfo
+
+.vercel
