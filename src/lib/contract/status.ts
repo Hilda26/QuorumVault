@@ -26,3 +26,19 @@ const STAGE_TONE: Record<string, Tone> = {
 export function statusTone(stage: string): Tone {
   return STAGE_TONE[stage] ?? "amber";
 }
+
+const STAGE_LABEL: Record<string, string> = {
+  PENDING_REVIEW: "awaiting review",
+  OBJECTION_WINDOW: "open to objection",
+  OBJECTED: "objection raised",
+  INSTALL_PENDING: "installing",
+  INSTALLED: "installed",
+  DENIED: "denied",
+  INCONCLUSIVE: "inconclusive",
+  UNGROUNDED: "voided",
+  WITHDRAWN: "withdrawn",
+};
+
+export function stageLabel(stage: string): string {
+  return STAGE_LABEL[stage] ?? stage;
+}
