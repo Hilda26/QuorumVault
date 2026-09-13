@@ -27,26 +27,47 @@ and a bounded on-chain objection window before it can install.
 - **Hard-fail on missing determinism.** Every timestamp read requires GenVM's message-level datetime; there is
   no silent fallback to local wall-clock, closing a class of non-determinism risk.
 
-## Quality gates (all passing)
+## Measured results
+
+Lint clean, source verified pure ASCII. 3/3 local contract tests passing (deploy, wallet-role lookups, and
+Studio's known integer-encoded-address edge case, reproduced and fixed). 16/16 frontend tests passing.
+Clean `tsc --noEmit`, clean `eslint`, clean production build. One real StudioNet integration test, run
+against freshly deployed contracts with real GenVM validator consensus and a real fetched source URL --
+not a mock:
 
 ```
-python -m pytest tests/direct -q        # 3 contract tests -- deploy, roles, and Studio's known
-                                          # integer-encoded-address edge case
-npx tsc --noEmit                         # clean
-npx eslint .                             # clean
-npm run test                             # 16 frontend tests
-npm run build                            # clean production build
+python -m pytest tests/direct -q          # 3 passed
+npm run test                              # 16 passed
+npx tsc --noEmit && npx eslint . && npm run build   # all clean
+python -m pytest tests/integration -v -s  # 1 passed in 264.71s (0:04:24)
 ```
 
-## A real bug found and fixed before submission
+The integration test deploys `QuorumVault` and `VaultCounter` fresh, calls `request_join` (which fires the
+real founding-review AI-consensus round against the *actually pinned* `VaultCounter.py` source at commit
+`1af7774309a66578721f83ad2b02d272622e25aa` in this repo), waits for the resulting asynchronous
+`join_vault` child transaction to finalize, then asserts the vault's on-chain record (`slug`, `open`,
+`release`, `member_address`, `exclusive_custodian`) is exactly correct -- and finally exercises a normal
+write (`tick`) to confirm ordinary state still updates. Every transaction hash is printed as evidence in the
+test output, matching the standard of proof used for prior GenLayer submissions in this line of work:
+real deployed addresses, real consensus, assertions on final on-chain state, nothing mocked.
 
-Deploying `VaultCounter` through GenLayer Studio's manual deploy form repeatedly failed with
-`OverflowError: cannot fit 'int' into an index-sized integer`. Studio's UI encodes an `address`-typed
-constructor argument as a plain integer in the transaction calldata rather than as hex bytes, and the naive
-`Address(value)` fallback misread that integer as a byte-length request. Fixed with a small `_as_address()`
-normalizer that unpacks an integer into its 20-byte big-endian form before constructing the `Address`, and
-added a regression test that reproduces the exact failure mode (an address passed as a raw Python `int`)
-to prove the fix holds.
+## A real bug found and fixed before submission (twice)
+
+1. **Studio's integer-encoded address.** Deploying `VaultCounter` through GenLayer Studio's manual deploy
+   form repeatedly failed with `OverflowError: cannot fit 'int' into an index-sized integer`. Studio's UI
+   encodes an `address`-typed constructor argument as a plain integer in the transaction calldata rather
+   than as hex bytes, and the naive `Address(value)` fallback misread that integer as a byte-length request.
+   Fixed with a small `_as_address()` normalizer that unpacks an integer into its 20-byte big-endian form
+   before constructing the `Address`, and added a regression test that reproduces the exact failure mode.
+2. **Async triggered-transaction race, found only by a real network run.** The first attempt at the
+   StudioNet integration test asserted `get_ledger()["vault_total"] == "1"` immediately after
+   `request_join` finalized -- and failed, reading `"0"`. `request_join` relays into `QuorumVault.join_vault`
+   via an asynchronous `emit(on="finalized")` call; the parent transaction finalizing does not mean the
+   triggered child has. No mocked/local test could have caught this, since the local sandbox executes both
+   calls synchronously. Fixed by waiting on `wait_triggered_transactions=True` /
+   `wait_triggered_transactions_status=FINALIZED` before reading dependent state -- the same pattern the
+   frontend's own `waitFinalized` + `triggered_transactions` handling already assumes, now proven correct
+   against a real network instead of just assumed.
 
 ## How to use it
 
