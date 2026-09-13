@@ -26,6 +26,19 @@ Every fetch is snapshotted once, at the moment it matters (drafting, objecting),
 
 Next.js (App Router), TypeScript strict, Tailwind, `genlayer-js` targeting GenLayer StudioNet. Dark "vault" visual system: hard borders, offset shadows, a condensed display face for headlines, monospace for on-chain data. Full transaction lifecycle tracking (`AWAITING_SIGNATURE -> ... -> DONE`, with named failure states), wrong-network guarding, and a pre-signature contract preview on the enrollment form.
 
+## Status at a glance
+
+| Check | Result |
+| --- | --- |
+| `npx tsc --noEmit` | ✅ clean |
+| `npx eslint .` | ✅ clean |
+| `npm run test` (vitest) | ✅ 16/16 |
+| `npm run build` | ✅ succeeds |
+| `python -m pytest tests/direct -q` | ✅ 3/3 |
+| `python -m pytest tests/integration -v -s` | ✅ 1/1 (real StudioNet, 264.71s) -- see [SUBMISSION.md](SUBMISSION.md) |
+| Live StudioNet deployment | ✅ live, deployed and wired -- see [SUBMISSION.md](SUBMISSION.md) |
+| Live Vercel deployment | ✅ https://quorum-vault-gamma.vercel.app |
+
 ## Quality gates
 
 ```bash
