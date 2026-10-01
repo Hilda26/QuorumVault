@@ -53,7 +53,4 @@ The full StudioNet integration test passed:
 1 passed in 1118.63s (0:18:38)
 ```
 
-## Note
 
-There are unrelated untracked RootGuard files still present in the local checkout from earlier work. They were
-not included in the Quorum Vault review commit and are not part of this resubmission.
