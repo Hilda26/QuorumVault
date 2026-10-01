@@ -12,8 +12,8 @@ const DEFAULT_POLICY = "A change may only clear if it keeps this contract's stor
 const EXAMPLE = {
   id: "counter-demo",
   name: "Counter (demo)",
-  target: "0x34dfd83798AA2040356f0AeDEB584DAeFb39293e",
-  source: "https://raw.githubusercontent.com/Hilda26/QuorumVault/b7dfb833b4cc1b8d98719ad6726d9436e6306697/contracts/VaultCounter.py",
+  target: "0xb5684e0424a58eDa7d27D00D57B6BCE2F754438D",
+  source: "https://raw.githubusercontent.com/Hilda26/QuorumVault/9301ff076f7842d4d9c8308aed8e8f7e7d738fe1/contracts/VaultCounter.py",
 };
 
 export function EnrollTargetForm({ onFinalized }: { onFinalized: () => Promise<void> }) {

@@ -58,7 +58,7 @@ export async function writeContract(address: `0x${string}`, account: `0x${string
   return await writer.writeContract({ address, functionName, args, value: 0n, consensusMaxRotations: 3 }) as TransactionHash;
 }
 
-export async function writeRootGuard(account: `0x${string}`, functionName: string, args: CalldataEncodable[]) {
+export async function writeQuorumVault(account: `0x${string}`, functionName: string, args: CalldataEncodable[]) {
   return writeContract(configuredAddress(), account, functionName, args);
 }
 

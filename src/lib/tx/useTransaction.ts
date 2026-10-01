@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { CalldataEncodable, TransactionHash } from "genlayer-js/types";
-import { writeContract, writeRootGuard, waitFinalized, CONTRACT_ADDRESS } from "@/lib/quorumvault";
+import { writeContract, writeQuorumVault, waitFinalized, CONTRACT_ADDRESS } from "@/lib/quorumvault";
 import { STUDIONET_CHAIN_ID } from "@/lib/network";
 
 export type TxState =
@@ -75,7 +75,7 @@ export function useTransaction(onSettled?: () => Promise<void> | void) {
     const destination = address ?? CONTRACT_ADDRESS;
     if (!destination) {
       update(placeholder, "RPC_ERROR");
-      setError("RootGuard contract not configured.");
+      setError("Quorum Vault contract not configured.");
       return;
     }
 
@@ -83,7 +83,7 @@ export function useTransaction(onSettled?: () => Promise<void> | void) {
     try {
       hash = address
         ? await writeContract(address, account, functionName, args)
-        : await writeRootGuard(account, functionName, args);
+        : await writeQuorumVault(account, functionName, args);
     } catch (cause) {
       const message = cause instanceof Error ? cause.message : "Transaction failed.";
       const rejected = /reject|denied|cancelled|canceled/i.test(message);

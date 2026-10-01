@@ -49,7 +49,7 @@ export function NetworkGuard() {
   return (
     <div className="rg-alert">
       <span>
-        Wrong network detected (chain {chainId}). RootGuard runs on GenLayer StudioNet (chain {STUDIONET_CHAIN_ID}).
+        Wrong network detected (chain {chainId}). Quorum Vault runs on GenLayer StudioNet (chain {STUDIONET_CHAIN_ID}).
         Writes are blocked until you switch.
       </span>
       <button type="button" onClick={() => void switchNetwork()}>

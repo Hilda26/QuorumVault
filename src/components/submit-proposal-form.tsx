@@ -7,7 +7,7 @@ import { TxLifecycleList } from "@/components/tx-lifecycle";
 import { NetworkGuard, useNetworkGuard } from "@/components/network-guard";
 import { sourceUrlError } from "@/lib/validation/url";
 
-const EXAMPLE_SOURCE = "https://raw.githubusercontent.com/Hilda26/QuorumVault/b7dfb833b4cc1b8d98719ad6726d9436e6306697/contracts/VaultCounterR2.py";
+const EXAMPLE_SOURCE = "https://raw.githubusercontent.com/Hilda26/QuorumVault/9301ff076f7842d4d9c8308aed8e8f7e7d738fe1/contracts/VaultCounterR2.py";
 const EXAMPLE_BRIEF = "Adds an add(amount) write method and reports release r2. Storage layout, custody, and existing reads are all unchanged; no assets move.";
 
 export function SubmitProposalForm({ targets, onFinalized }: { targets: Vault[]; onFinalized: () => Promise<void> }) {

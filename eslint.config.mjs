@@ -8,5 +8,12 @@ export default defineConfig([
       "react-hooks/set-state-in-effect": "off",
     },
   },
-  globalIgnores([".next/**", "node_modules/**", "artifacts/**"]),
+  globalIgnores([
+    ".next/**",
+    "node_modules/**",
+    "artifacts/**",
+    ".pytest_cache/**",
+    "**/__pycache__/**",
+    "pytest-cache-files-*/**",
+  ]),
 ]);
